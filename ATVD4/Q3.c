@@ -10,7 +10,7 @@ typedef struct l lista;
 
 void insere(int n, lista **p);
 void imprime(lista *p);
-lista* retira_n(lista *l, int n);
+lista* reordena_lista(lista* l);
 
 int main(void){
     lista *l1 = NULL;
@@ -26,15 +26,15 @@ int main(void){
             }
         imprime(l1);
 
-        scanf("%d", &num);
-        lista *l1_removido = retira_n(l1,num);
-        if(l1_removido)
-            imprime(l1_removido);
+        lista *l1_reodernar = reordena_lista(l1);
+        if(l1_reodernar)
+            imprime(l1_reodernar);
         else
             printf("Lista Vazia\n");
-        l1_removido = NULL;
+        l1_reodernar = NULL;
         l1 = NULL;
-        }
+        }else
+            printf("O valor de N fora do intervalo\n");
     }
 }
 
@@ -45,6 +45,10 @@ void insere(int n, lista **p){
         nova->num = n;
         nova->prox = NULL;
     }
+    
+    //nova->num = n;
+    //nova->prox = *p;
+    //*p = nova;
     
     lista *temp = *p;
     if(*p == NULL)
@@ -65,32 +69,26 @@ void imprime(lista *p){
     printf("NULL\n");
 }
 
-lista* retira_n(lista *l, int n){
-    lista *aux = NULL, *remover = NULL, *temp = l;
+lista* reordena_lista(lista* l){
+    lista *i, *j, *aux;
 
-    // Remove os valor n no inicio da lista
-    while( temp != NULL && temp->num == n){
-        remover = temp;
-        temp = temp->prox;
-        free(remover);
+    if (l == NULL || l->prox == NULL)
+        return l;
+    
+    for(i = l; i != NULL; i = i->prox){
+        aux = i;
+        for(j = i->prox; j != NULL; j = j->prox){
+            if(j->num % 2 == 1){
+                aux = j;
+            }   
+        }
+        if(aux != i){
+            int temp = i->num; //i->num e guardado em temp
+            i->num = aux->num;// i->num recebe o valor de aux->num
+            aux->num = temp;// aux->num recebe o valor de temp que tinha i->num e assim ocorre a troca
+        }
     }
 
-    if(temp == NULL)
-        return NULL;
-
-    // Atualiza o início da lista
-    l = temp;
-    aux = temp;
-    // Percorre o restante da lista e remove n
-    while(aux->prox != NULL){
-        if(aux->prox->num == n){
-            remover = aux->prox;
-            aux->prox = remover->prox;
-            free(remover);
-        }else{
-            aux = aux->prox;
-        }
-    }   
     return l;
 }
 
