@@ -62,6 +62,8 @@ void insere(int n, lista **p){
 
 void imprime(lista *p){
     lista* novo = p;
+    if(novo == NULL)
+        printf("Lista Vazia");
     while(novo != NULL){
         printf("%d ", novo->num);
         novo = novo->prox;
