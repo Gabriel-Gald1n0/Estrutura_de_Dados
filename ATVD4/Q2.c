@@ -33,7 +33,7 @@ int main(void){
             imprime(l1_removido);
         else
             printf("Lista Vazia\n");
-        libera(l1_removido);
+        l1_removido = NULL;
         l1 = NULL;
         }
     }
@@ -95,11 +95,3 @@ lista* retira_n(lista *l, int n){
     return l;
 }
 
-void libera(lista *l) {
-    lista *aux;
-    while (l != NULL) {
-        aux = l;
-        l = l->prox;
-        free(aux);
-    }
-}
