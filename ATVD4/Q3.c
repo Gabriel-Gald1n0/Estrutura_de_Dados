@@ -49,7 +49,7 @@ void insere(int n, lista **p){
     //nova->num = n;
     //nova->prox = *p;
     //*p = nova;
-    
+
     lista *temp = *p;
     if(*p == NULL)
         *p = nova;
@@ -63,10 +63,10 @@ void insere(int n, lista **p){
 void imprime(lista *p){
     lista* novo = p;
     while(novo != NULL){
-        printf("%d->", novo->num);
+        printf("%d ", novo->num);
         novo = novo->prox;
     }
-    printf("NULL\n");
+    printf("\n");
 }
 
 lista* reordena_lista(lista* l){
