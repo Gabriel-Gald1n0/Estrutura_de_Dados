@@ -150,12 +150,12 @@ int cont(Expressao *ini, char *palavra){
     return cont;
 }
 
-void libera(Expressao **ini){
-    Expressao *aux = *ini;
+void libera(Expressao **ex){
+    Expressao *aux = *ex;
     while(aux != NULL){
         Expressao *temp = aux;
         aux = aux->prox;
         free(temp);
     }
-    *ini = NULL;
+    *ex = NULL;
 }
